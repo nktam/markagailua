@@ -4,6 +4,11 @@ const reloj=document.querySelector('.reloj');
 const periodo=document.querySelector('.periodo');
 const estadoReloj=document.querySelector('#estado-reloj');
 const videoEnsayo=document.querySelector('#video-ensayo');
+const origenVideoEnsayo=document.querySelector('#video-ensayo source');
+const videosEnsayo={
+    local: 'img/Entxeguadrb.mp4',
+    visitante: 'img/EntseguaBisitaria.mp4'
+};
 let segundosTranscurridos=0;
 let intervaloReloj=null;
 let segundaParte=false;
@@ -13,14 +18,17 @@ videoEnsayo.addEventListener('ended', () => {
     videoEnsayo.currentTime=0;
 });
 
-function reproducirVideoEnsayo() {
+function reproducirVideoEnsayo(equipo='local') {
+    const fuente=videosEnsayo[equipo] || videosEnsayo.local;
+    origenVideoEnsayo.setAttribute('src', fuente);
+    videoEnsayo.load();
     videoEnsayo.hidden=false;
     videoEnsayo.currentTime=0;
     const reproduccion=videoEnsayo.play();
     if(reproduccion) {
         reproduccion.catch((error) => {
             videoEnsayo.hidden=true;
-            console.error('No se pudo reproducir el vídeo del ensayo local.', error);
+            console.error(`No se pudo reproducir el vídeo del ensayo ${equipo}.`, error);
         });
     }
 }
@@ -96,6 +104,6 @@ document.querySelectorAll('[data-team][data-points]').forEach((boton) => {
         ensayos[equipo]=Math.max(0, ensayos[equipo]+cambioEnsayos);
         document.querySelector(`#puntos-${equipo}`).textContent=puntuaciones[equipo];
         document.querySelector(`#ensayos-${equipo}`).textContent=ensayos[equipo];
-        if(equipo==='local' && cambioEnsayos>0) reproducirVideoEnsayo();
+        if(cambioEnsayos>0) reproducirVideoEnsayo(equipo);
     });
 });
