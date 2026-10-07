@@ -1,0 +1,90 @@
+.estado-conexion {
+    position: fixed;
+    z-index: 10;
+    top: 12px;
+    right: 12px;
+    max-width: min(440px, calc(100vw - 24px));
+    margin: 0;
+    padding: 10px 14px;
+    color: #fff;
+    background: #8f2f2a;
+    border-radius: 4px;
+    font: 14px/1.4 Arial, sans-serif;
+}
+
+.sesion-control {
+    margin-top: 8px;
+}
+
+.sesion-control .boton-reloj {
+    width: 100%;
+    color: #173d32;
+    background: #e4d4a8;
+}
+
+.pagina-gestion {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: #123d32;
+    font-family: Arial, sans-serif;
+}
+
+.formulario-gestion {
+    box-sizing: border-box;
+    width: min(100%, 420px);
+    padding: 32px;
+    color: #173d32;
+    background: #f4f1e8;
+    border: 1px solid #c8c2ad;
+}
+
+.formulario-gestion > p:first-child {
+    margin: 0 0 8px;
+    color: #a53d35;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.formulario-gestion h1 {
+    margin: 0 0 24px;
+    font: 700 24px/1.1 Georgia, 'Times New Roman', serif;
+}
+
+.formulario-gestion label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.formulario-gestion input[type="password"] {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 42px;
+    margin-bottom: 14px;
+    padding: 8px 10px;
+    border: 1px solid #a8b5a8;
+    border-radius: 3px;
+    font: 16px Arial, sans-serif;
+}
+
+.formulario-gestion form .boton-reloj {
+    width: 100%;
+}
+
+.formulario-gestion > a {
+    display: inline-block;
+    margin-top: 18px;
+    color: #173d32;
+    font-size: 14px;
+}
+
+.error-gestion {
+    padding: 10px;
+    color: #812d28;
+    background: #f4e3df;
+    font-size: 14px;
+}
