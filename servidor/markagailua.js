@@ -10,8 +10,8 @@ const nombreVisitante=document.querySelector('#nombre-visitante');
 const esGestor=document.body.dataset.manager==='true';
 const csrfToken=document.querySelector('input[name="csrf_token"]')?.value;
 const videosEnsayo={
-    local: '../img/Entxeguadrb.mp4',
-    visitor: '../img/EntseguaBisitaria.mp4'
+    local: 'img/Entxeguadrb.mp4',
+    visitor: 'img/EntseguaBisitaria.mp4'
 };
 const nombresVisitante={
     'Bisitaria.jpg': 'BISITARIA',
@@ -78,7 +78,7 @@ function aplicarEstado(estado) {
     renderizarReloj();
 
     const equipo=nombresVisitante[estado.visitorLogo];
-    insigniaVisitante.src=`../img/equipos/${encodeURIComponent(estado.visitorLogo)}`;
+    insigniaVisitante.src=`img/equipos/${encodeURIComponent(estado.visitorLogo)}`;
     insigniaVisitante.alt=equipo? `Escudo de ${equipo}`:'Escudo del equipo visitante';
     if(equipo) nombreVisitante.textContent=equipo;
     if(selectorVisitante) {

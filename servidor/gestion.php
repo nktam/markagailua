@@ -16,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: index.php');
         exit;
     } elseif (($_POST['action'] ?? '') === 'login') {
-        $passwordHash = (string) ($config['admin_password_hash'] ?? '');
+        $adminPassword = (string) ($config['admin_password'] ?? '');
         $password = $_POST['password'] ?? '';
 
-        if ($passwordHash === '') {
+        if ($adminPassword === '') {
             $error = 'El administrador todavía no ha configurado la clave en el servidor.';
-        } elseif (!is_string($password) || !password_verify($password, $passwordHash)) {
+        } elseif (!is_string($password) || !hash_equals($adminPassword, $password)) {
             http_response_code(401);
             $error = 'La clave de gestión no es correcta.';
         } else {
@@ -48,7 +48,7 @@ if (manager_authenticated()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestión del marcador</title>
-    <link rel="stylesheet" href="../css/markagailua.css">
+    <link rel="stylesheet" href="css/markagailua.css">
     <link rel="stylesheet" href="servidor.css">
 </head>
 <body class="pagina-gestion">

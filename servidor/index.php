@@ -10,7 +10,7 @@ $isManager = manager_authenticated();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Marcador de rugby</title>
-    <link rel="stylesheet" href="../css/markagailua.css">
+    <link rel="stylesheet" href="css/markagailua.css">
     <link rel="stylesheet" href="servidor.css">
 </head>
 
@@ -19,10 +19,10 @@ $isManager = manager_authenticated();
     <div class="recuadro">
         <main class="marcador" aria-label="Marcador de rugby">
             <video class="video-fondo" autoplay muted loop playsinline aria-hidden="true">
-                <source src="../img/fondo.mp4" type="video/mp4">
+                <source src="img/fondo.mp4" type="video/mp4">
             </video>
             <video class="video-ensayo" id="video-ensayo" muted playsinline hidden aria-hidden="true">
-                <source src="../img/Entxeguadrb.mp4" type="video/mp4">
+                <source src="img/Entxeguadrb.mp4" type="video/mp4">
             </video>
             <header class="cabecera">
                 <div class="marcador-central">
@@ -34,14 +34,14 @@ $isManager = manager_authenticated();
 
             <section class="partido" aria-label="Resultado del partido">
                 <div class="equipo anfitrion">
-                    <img class="insignia" src="../img/drb.jpg" alt="Escudo del equipo local">
+                    <img class="insignia" src="img/drb.jpg" alt="Escudo del equipo local">
                     <span>DONOSTIA RUGBY<br>BALEZALEAK</span>
                     <span class="puntuacion"><span class="puntos" id="puntos-local">0</span><span class="ensayos"
                             id="ensayos-local">0</span></span>
                 </div>
 
                 <div class="equipo visitante">
-                    <img class="insignia" id="insignia-visitante"  src="../img/equipos/Bisitaria.jpg" alt="">
+                    <img class="insignia" id="insignia-visitante"  src="img/equipos/Bisitaria.jpg" alt="">
                     <span id="nombre-visitante">BISITARIA</span>
                     <span class="puntuacion"><span class="puntos" id="puntos-visitante">0</span><span class="ensayos"
                             id="ensayos-visitante">0</span></span>
@@ -49,7 +49,7 @@ $isManager = manager_authenticated();
             </section>
 
             <footer class="pie">
-                <img src="../img/DonostiaKirola.svg" alt="Donostia Kirola">
+                <img src="img/DonostiaKirola.svg" alt="Donostia Kirola">
             </footer>
         </main>
     </div>

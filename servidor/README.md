@@ -12,14 +12,8 @@ La página pública (`servidor/index.php`) muestra únicamente el marcador. Cual
 
 1. Importa `schema.sql` en MySQL. Crea la base de datos `markagailua` y la tabla con el estado inicial.
 2. Copia `config.example.php` como `config.php` y ajusta la conexión a MySQL.
-3. Genera una clave segura para gestión y guarda únicamente su hash en `config.php`. Puedes generarlo con:
-
-   ```sh
-   php -r "echo password_hash('CAMBIA-ESTA-CLAVE', PASSWORD_DEFAULT), PHP_EOL;"
-   ```
-
-   Añade el hash a la configuración como `admin_password_hash`. No publiques ni compartas `config.php`; está excluido de Git.
-4. Publica la carpeta `servidor/` en un servidor con HTTPS y abre `servidor/index.php`. El marcador es de solo lectura para los visitantes; el gestor entra por `servidor/gestion.php`.
+3. Guarda la clave de gestión directamente en `config.php` como `admin_password`. No publiques ni compartas `config.php`; está excluido de Git.
+4. Publica la carpeta `servidor/` completa, incluida `img/` y `css/`, en un servidor con HTTPS y abre `index.php`. El marcador es de solo lectura para los visitantes; el gestor entra por `gestion.php`.
 
 Ejemplo de `config.php`:
 
@@ -30,10 +24,12 @@ return [
     'db_name' => 'markagailua',
     'db_user' => 'usuario_mysql',
     'db_password' => 'clave_mysql',
-    'admin_password_hash' => 'PEGA_AQUI_EL_HASH_GENERADO',
+    'admin_password' => 'TU-CLAVE-DE-GESTION',
 ];
 ```
 
-También se admiten las variables de entorno `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` y `ADMIN_PASSWORD_HASH`.
+También se admiten las variables de entorno `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` y `ADMIN_PASSWORD`.
+
+La clave se guarda como texto en la configuración del servidor; protege ese archivo y utiliza HTTPS al publicar la aplicación.
 
 Los navegadores consultan el estado compartido cada segundo. El cronómetro se calcula en el servidor, por lo que sigue avanzando correctamente aunque se cierre la pestaña del gestor.

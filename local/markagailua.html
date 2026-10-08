@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recuadro</title>
+    <link rel="stylesheet" href="css/markagailua.css">
+</head>
+
+<body>
+    <div class="recuadro">
+        <main class="marcador" aria-label="Marcador de rugby">
+            <video class="video-fondo" autoplay muted loop playsinline aria-hidden="true">
+                <source src="img/fondo.mp4" type="video/mp4">
+            </video>
+            <video class="video-ensayo" id="video-ensayo" muted playsinline hidden aria-hidden="true">
+                <source src="img/Entxeguadrb.mp4" type="video/mp4">
+            </video>
+            <header class="cabecera">
+                <div class="marcador-central">
+                    <div class="periodo">1. ZATIA</div>
+                    <div class="reloj">00:00</div>
+
+                </div>
+            </header>
+
+            <section class="partido" aria-label="Resultado del partido">
+                <div class="equipo anfitrion">
+                    <img class="insignia" src="img/drb.jpg" alt="Escudo del equipo local">
+                    <span>DONOSTIA RUGBY<br>BALEZALEAK</span>
+                    <span class="puntuacion"><span class="puntos" id="puntos-local">0</span><span class="ensayos"
+                            id="ensayos-local">0</span></span>
+                </div>
+
+                <div class="equipo visitante">
+                    <img class="insignia" id="insignia-visitante"  src="img/equipos/Bisitaria.jpg" alt="">
+                    <span id="nombre-visitante">BISITARIA</span>
+                    <span class="puntuacion"><span class="puntos" id="puntos-visitante">0</span><span class="ensayos"
+                            id="ensayos-visitante">0</span></span>
+                </div>
+            </section>
+
+            <footer class="pie">
+                <img src="img/DonostiaKirola.svg" alt="Donostia Kirola">
+            </footer>
+        </main>
+    </div>
+
+    <aside class="panel-control" aria-label="Panel de control del partido">
+        <header class="panel-cabecera">
+            <p>RUGBY / CONTROL</p>
+            <h1>Partido</h1>
+        </header>
+
+        <section class="seccion-control" aria-labelledby="titulo-reloj">
+            <h2 id="titulo-reloj">Cronómetro</h2>
+            <p class="estado-reloj" id="estado-reloj" aria-live="polite">En pausa</p>
+            <div class="controles-reloj">
+                <button class="boton-reloj" id="iniciar-reloj" type="button"><span class="icono-reloj"
+                        aria-hidden="true">▶</span> Iniciar</button>
+                <button class="boton-reloj" id="pausar-reloj" type="button"><span class="icono-reloj"
+                        aria-hidden="true">Ⅱ</span> Pausar</button>
+                <button class="boton-reloj" id="cambiar-parte" type="button">Cambiar parte</button>
+            </div>
+        </section>
+
+        <section class="equipo-control" aria-labelledby="titulo-local">
+            <h2 id="titulo-local">Local</h2>
+            <div class="fila-puntuacion">
+                <span class="acciones-puntuacion">
+                    <button class="boton-puntos" type="button" data-team="local" data-points="5" data-try-delta="1"
+                        aria-label="Sumar 5 puntos por ensayo al equipo local"><span class="signo-puntos">+</span>
+                        Ensayo</button>
+                    <button class="boton-puntos restar" type="button" data-team="local" data-points="-5"
+                        data-try-delta="-1" aria-label="Restar 5 puntos por ensayo al equipo local"><span
+                            class="signo-puntos">−</span> Ensayo</button>
+                </span>
+            </div>
+            <div class="fila-puntuacion">
+                <span class="acciones-puntuacion">
+                    <button class="boton-puntos" type="button" data-team="local" data-points="2"
+                        aria-label="Sumar 2 puntos por transformación al equipo local"><span
+                            class="signo-puntos">+</span> Transformación</button>
+                    <button class="boton-puntos restar" type="button" data-team="local" data-points="-2"
+                        aria-label="Restar 2 puntos por transformación al equipo local"><span
+                            class="signo-puntos">−</span> Transformación</button>
+                </span>
+            </div>
+            <div class="fila-puntuacion">
+                <span class="acciones-puntuacion">
+                    <button class="boton-puntos" type="button" data-team="local" data-points="3"
+                        aria-label="Sumar 3 puntos por golpe de castigo al equipo local"><span
+                            class="signo-puntos">+</span> Golpe</button>
+                    <button class="boton-puntos restar" type="button" data-team="local" data-points="-3"
+                        aria-label="Restar 3 puntos por golpe de castigo al equipo local"><span
+                            class="signo-puntos">−</span> Golpe</button>
+                </span>
+            </div>
+        </section>
+
+        <section class="equipo-control visitante-control" aria-labelledby="titulo-visitante">
+            <h2 id="titulo-visitante">BISITARIA</h2>
+            <div class="fila-puntuacion">
+                <span class="acciones-puntuacion">
+                    <button class="boton-puntos" type="button" data-team="visitante" data-points="5" data-try-delta="1"
+                        aria-label="Sumar 5 puntos por ensayo al equipo visitante"><span class="signo-puntos">+</span>
+                        Ensayo</button>
+                    <button class="boton-puntos restar" type="button" data-team="visitante" data-points="-5"
+                        data-try-delta="-1" aria-label="Restar 5 puntos por ensayo al equipo visitante"><span
+                            class="signo-puntos">−</span> Ensayo</button>
+                </span>
+            </div>
+            <div class="fila-puntuacion">
+                <span class="acciones-puntuacion">
+                    <button class="boton-puntos" type="button" data-team="visitante" data-points="2"
+                        aria-label="Sumar 2 puntos por transformación al equipo visitante"><span
+                            class="signo-puntos">+</span> Transformación</button>
+                    <button class="boton-puntos restar" type="button" data-team="visitante" data-points="-2"
+                        aria-label="Restar 2 puntos por transformación al equipo visitante"><span
+                            class="signo-puntos">−</span> Transformación</button>
+                </span>
+            </div>
+            <div class="fila-puntuacion">
+                <span class="acciones-puntuacion">
+                    <button class="boton-puntos" type="button" data-team="visitante" data-points="3"
+                        aria-label="Sumar 3 puntos por golpe de castigo al equipo visitante"><span
+                            class="signo-puntos">+</span> Golpe</button>
+                    <button class="boton-puntos restar" type="button" data-team="visitante" data-points="-3"
+                        aria-label="Restar 3 puntos por golpe de castigo al equipo visitante"><span
+                            class="signo-puntos">−</span> Golpe</button>
+                </span>
+            </div>
+        </section>
+        <div class="restablecer-control">
+            <button class="boton-reloj" id="resetear-reloj" type="button">Resetear</button>
+        </div>
+    </aside>
+
+    <aside class="panel-config" aria-label="Panel de configuración">
+        <header class="panel-cabecera">
+            <p>RUGBY / AJUSTES</p>
+            <h1>Configuración</h1>
+        </header>
+        <section class="seccion-control" aria-labelledby="titulo-equipo-visitante">
+            <h2 id="titulo-equipo-visitante">Equipo visitante</h2>
+            <label for="seleccionar-visitante">Equipo</label>
+            <select id="seleccionar-visitante">
+                <option value="" selected disabled>Seleccionar equipo</option>
+                <option value="Bisitaria.jpg">BISITARIA</option>
+                <option value="Betsaide Elorrio RT.jpg">BETSAIDE ELORRIO RT</option>
+                <option value="Cormorán RC.jpg">CORMORÁN RC</option>
+                <option value="Durango RT.jpg">DURANGO RT</option>
+                <option value="Gaztedi RT.jpg">GAZTEDI RT</option>
+                <option value="Geurea RT.jpg">GEUREA RT</option>
+                <option value="Hernani RCE.jpg">HERNANI RCE</option>
+                <option value="La Unica RT.jpg">LA UNICA RT</option>
+                <option value="Pasek Belenos.jpg">PASEK BELENOS</option>
+                <option value="RC Rioja.jpeg">RC RIOJA</option>
+                <option value="Rugby Aranda Freund.jpg">RUGBY ARANDA FREUND</option>
+                <option value="Txingudi RC.png">TXINGUDI RC</option>
+                <option value="Universitario Bilbao Rugby.jpg">UNIVERSITARIO BILBAO</option>
+                <option value="Uribealdea RKE.jpg">URIBEALEA RKE</option>
+            </select>
+        </section>
+    </aside>
+
+    <script src="js/markagailua.js"></script>
+</body>
+
+</html>
