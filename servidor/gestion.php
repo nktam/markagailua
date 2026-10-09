@@ -49,11 +49,10 @@ if (manager_authenticated()) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestión del marcador</title>
     <link rel="stylesheet" href="css/markagailua.css">
-    <link rel="stylesheet" href="servidor.css">
+    <link rel="stylesheet" href="css/servidor.css">
 </head>
 <body class="pagina-gestion">
     <main class="formulario-gestion">
-        <p>RUGBY / CONTROL</p>
         <h1>Gestión del marcador</h1>
         <?php if ($error !== ''): ?>
             <p class="error-gestion" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>

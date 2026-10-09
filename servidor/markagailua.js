@@ -1,7 +1,9 @@
 const reloj=document.querySelector('.reloj');
 const periodo=document.querySelector('.periodo');
-const estadoReloj=document.querySelector('#estado-reloj');
 const estadoConexion=document.querySelector('#estado-conexion');
+const botonPantallaCompleta=document.querySelector('#pantalla-completa');
+const anchoMarcador=document.querySelector('#ancho-marcador');
+const altoMarcador=document.querySelector('#alto-marcador');
 const videoEnsayo=document.querySelector('#video-ensayo');
 const origenVideoEnsayo=document.querySelector('#video-ensayo source');
 const selectorVisitante=document.querySelector('#seleccionar-visitante');
@@ -10,7 +12,7 @@ const nombreVisitante=document.querySelector('#nombre-visitante');
 const esGestor=document.body.dataset.manager==='true';
 const csrfToken=document.querySelector('input[name="csrf_token"]')?.value;
 const videosEnsayo={
-    local: 'img/Entxeguadrb.mp4',
+    local: 'img/Entseguadrb.mp4',
     visitor: 'img/EntseguaBisitaria.mp4'
 };
 const nombresVisitante={
@@ -32,6 +34,7 @@ const nombresVisitante={
 let segundosBase=0;
 let instanteBase=performance.now();
 let relojEnMarcha=false;
+let segundaParte=false;
 let ultimoEvento=null;
 
 videoEnsayo.addEventListener('ended', () => {
@@ -58,11 +61,53 @@ function mostrarError(mensaje) {
     estadoConexion.hidden=false;
 }
 
+function actualizarBotonPantallaCompleta() {
+    const pantallaCompleta=Boolean(document.fullscreenElement);
+    botonPantallaCompleta.textContent=pantallaCompleta? 'Salir de pantalla completa':'Pantalla completa';
+    botonPantallaCompleta.setAttribute('aria-pressed', pantallaCompleta.toString());
+}
+
+if(botonPantallaCompleta) {
+    function actualizarTamanoMarcador() {
+        const ancho=Number(anchoMarcador.value);
+        const alto=Number(altoMarcador.value);
+        if(!Number.isSafeInteger(ancho) || ancho<1 || ancho>10000
+            || !Number.isSafeInteger(alto) || alto<1 || alto>10000) return;
+
+        document.documentElement.style.setProperty('--scoreboard-width', `${ancho}px`);
+        document.documentElement.style.setProperty('--scoreboard-height', `${alto}px`);
+    }
+
+    anchoMarcador.addEventListener('input', actualizarTamanoMarcador);
+    altoMarcador.addEventListener('input', actualizarTamanoMarcador);
+    actualizarTamanoMarcador();
+
+    if(document.fullscreenEnabled && document.documentElement.requestFullscreen) {
+        botonPantallaCompleta.addEventListener('click', async () => {
+            try {
+                if(document.fullscreenElement) {
+                    await document.exitFullscreen();
+                } else {
+                    await document.documentElement.requestFullscreen();
+                }
+            } catch(error) {
+                console.error('No se pudo cambiar el modo de pantalla completa.', error);
+                mostrarError('El navegador no ha permitido cambiar a pantalla completa.');
+            }
+        });
+        document.addEventListener('fullscreenchange', actualizarBotonPantallaCompleta);
+    } else {
+        botonPantallaCompleta.disabled=true;
+        botonPantallaCompleta.title='Este navegador no permite la pantalla completa en esta página.';
+    }
+}
+
 function renderizarReloj() {
     const transcurrido=segundosBase+(relojEnMarcha? Math.floor((performance.now()-instanteBase)/1000):0);
     const minutos=Math.floor(transcurrido/60).toString().padStart(2, '0');
     const segundos=(transcurrido%60).toString().padStart(2, '0');
     reloj.textContent=`${minutos}:${segundos}`;
+    reloj.classList.toggle('tiempo-excedido', transcurrido>(segundaParte? 80:40)*60);
 }
 
 function aplicarEstado(estado) {
@@ -70,11 +115,11 @@ function aplicarEstado(estado) {
     document.querySelector('#ensayos-local').textContent=estado.localTries;
     document.querySelector('#puntos-visitante').textContent=estado.visitorPoints;
     document.querySelector('#ensayos-visitante').textContent=estado.visitorTries;
-    periodo.textContent=estado.secondHalf? '2. ZATIA':'1. ZATIA';
+    segundaParte=estado.secondHalf;
+    periodo.textContent=segundaParte? '2. ZATIA':'1. ZATIA';
     segundosBase=estado.elapsedSeconds;
     instanteBase=performance.now();
     relojEnMarcha=estado.running;
-    if(estadoReloj) estadoReloj.textContent=estado.running? 'En marcha':'En pausa';
     renderizarReloj();
 
     const equipo=nombresVisitante[estado.visitorLogo];

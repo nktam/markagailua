@@ -2,14 +2,41 @@
     box-sizing: border-box;
 }
 
+.panel-config .boton-pantalla-completa {
+    width: 100%;
+    min-height: 40px;
+    margin-top: 12px;
+    padding: 8px 10px;
+    color: #fff;
+    background: #173d32;
+    border: 0;
+    border-radius: 3px;
+    font: 700 14px Arial, sans-serif;
+    cursor: pointer;
+}
+
+.panel-config .boton-pantalla-completa:hover {
+    background: #285c4b;
+}
+
+.panel-config .boton-pantalla-completa:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.panel-config .boton-pantalla-completa:focus-visible {
+    outline: 3px solid #d5a64a;
+    outline-offset: 2px;
+}
+
 .recuadro {
     box-sizing: border-box;
     position: absolute;
     left: 0;
     top: 0;
-    width: 600px;
-    height: 800px;
-    background-color: bisque;
+    width: var(--scoreboard-width, 600px);
+    height: var(--scoreboard-height, 800px);
+    background-color: rgb(255, 255, 255);
     display: grid;
     place-items: center;
     font-family: Georgia, 'Times New Roman', serif;
@@ -120,7 +147,7 @@
 }
 
 .ensayos {
-    color: #d8e0d8;
+    color: #e0e314;
     font: 400 25px/1 Arial, sans-serif;
     letter-spacing: 0;
 }
@@ -131,6 +158,10 @@
     font: 700 50px/1 Consolas, monospace;
     font-variant-numeric: tabular-nums;
     text-align: center;
+}
+
+.reloj.tiempo-excedido {
+    color: #ff3b30;
 }
 
 .periodo {
@@ -164,7 +195,7 @@
 
 .panel-control {
     position: absolute;
-    left: 620px;
+    left: calc(var(--scoreboard-width, 600px) + 20px);
     top: 0;
     width: 320px;
     height: 800px;
@@ -172,22 +203,20 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    color: #173d32;
-    background: #f4f1e8;
-    border: 1px solid #c8c2ad;
+    color: #000;
+    background: #f0f0f0;
     font-family: Arial, sans-serif;
 }
 
 .panel-config {
     position: absolute;
-    left: 960px;
+    left: calc(var(--scoreboard-width, 600px) + 360px);
     top: 0;
     width: 280px;
     height: 800px;
     padding: 24px;
-    color: #173d32;
-    background: #f4f1e8;
-    border: 1px solid #c8c2ad;
+    color: #000;
+    background: #f0f0f0;
     font-family: Arial, sans-serif;
 }
 
@@ -199,6 +228,24 @@
 }
 
 .panel-config select {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    color: #173d32;
+    background: #fff;
+    border: 1px solid #a8b5a8;
+    border-radius: 3px;
+    font: 14px Arial, sans-serif;
+}
+
+.campos-tamano {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.panel-config input[type="number"] {
+    box-sizing: border-box;
     width: 100%;
     min-height: 40px;
     padding: 8px 10px;
@@ -225,7 +272,7 @@
 
 .panel-cabecera h1 {
     margin: 0;
-    font: 700 24px/1.1 Georgia, 'Times New Roman', serif;
+    font: 700 24px/1.1 Arial, sans-serif;
 }
 
 .seccion-control {
@@ -239,12 +286,6 @@
     font-size: 14px;
     letter-spacing: 1px;
     text-transform: uppercase;
-}
-
-.estado-reloj {
-    margin: 0 0 10px;
-    color: #52645c;
-    font-size: 12px;
 }
 
 .controles-reloj {

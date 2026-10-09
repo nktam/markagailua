@@ -12,16 +12,6 @@
     font: 14px/1.4 Arial, sans-serif;
 }
 
-.sesion-control {
-    margin-top: 8px;
-}
-
-.sesion-control .boton-reloj {
-    width: 100%;
-    color: #173d32;
-    background: #e4d4a8;
-}
-
 .pagina-gestion {
     min-height: 100vh;
     display: grid;

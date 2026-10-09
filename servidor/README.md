@@ -33,3 +33,5 @@ También se admiten las variables de entorno `DB_HOST`, `DB_NAME`, `DB_USER`, `D
 La clave se guarda como texto en la configuración del servidor; protege ese archivo y utiliza HTTPS al publicar la aplicación.
 
 Los navegadores consultan el estado compartido cada segundo. El cronómetro se calcula en el servidor, por lo que sigue avanzando correctamente aunque se cierre la pestaña del gestor.
+
+En el panel de configuración de la pantalla de gestión se puede ajustar el ancho y el alto del marcador en píxeles. Este tamaño solo se aplica al navegador donde se cambian los valores; el marcador público mantiene su tamaño predeterminado.

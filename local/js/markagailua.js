@@ -2,16 +2,56 @@ const puntuaciones={local: 0, visitante: 0};
 const ensayos={local: 0, visitante: 0};
 const reloj=document.querySelector('.reloj');
 const periodo=document.querySelector('.periodo');
-const estadoReloj=document.querySelector('#estado-reloj');
+const botonPantallaCompleta=document.querySelector('#pantalla-completa');
+const anchoMarcador=document.querySelector('#ancho-marcador');
+const altoMarcador=document.querySelector('#alto-marcador');
 const videoEnsayo=document.querySelector('#video-ensayo');
 const origenVideoEnsayo=document.querySelector('#video-ensayo source');
 const videosEnsayo={
-    local: 'img/Entxeguadrb.mp4',
+    local: 'img/Entseguadrb.mp4',
     visitante: 'img/EntseguaBisitaria.mp4'
 };
 let segundosTranscurridos=0;
 let intervaloReloj=null;
 let segundaParte=false;
+
+function actualizarTamanoMarcador() {
+    const ancho=Number(anchoMarcador.value);
+    const alto=Number(altoMarcador.value);
+    if(!Number.isSafeInteger(ancho) || ancho<1 || ancho>10000
+        || !Number.isSafeInteger(alto) || alto<1 || alto>10000) return;
+
+    document.documentElement.style.setProperty('--scoreboard-width', `${ancho}px`);
+    document.documentElement.style.setProperty('--scoreboard-height', `${alto}px`);
+}
+
+anchoMarcador.addEventListener('input', actualizarTamanoMarcador);
+altoMarcador.addEventListener('input', actualizarTamanoMarcador);
+actualizarTamanoMarcador();
+
+function actualizarBotonPantallaCompleta() {
+    const pantallaCompleta=Boolean(document.fullscreenElement);
+    botonPantallaCompleta.textContent=pantallaCompleta? 'Salir de pantalla completa':'Pantalla completa';
+    botonPantallaCompleta.setAttribute('aria-pressed', pantallaCompleta.toString());
+}
+
+if(document.fullscreenEnabled && document.documentElement.requestFullscreen) {
+    botonPantallaCompleta.addEventListener('click', async () => {
+        try {
+            if(document.fullscreenElement) {
+                await document.exitFullscreen();
+            } else {
+                await document.documentElement.requestFullscreen();
+            }
+        } catch(error) {
+            console.error('No se pudo cambiar el modo de pantalla completa.', error);
+        }
+    });
+    document.addEventListener('fullscreenchange', actualizarBotonPantallaCompleta);
+} else {
+    botonPantallaCompleta.disabled=true;
+    botonPantallaCompleta.title='Este navegador no permite la pantalla completa en esta página.';
+}
 
 videoEnsayo.addEventListener('ended', () => {
     videoEnsayo.hidden=true;
@@ -48,11 +88,11 @@ function actualizarReloj() {
     const minutos=Math.floor(segundosTranscurridos/60).toString().padStart(2, '0');
     const segundos=(segundosTranscurridos%60).toString().padStart(2, '0');
     reloj.textContent=`${minutos}:${segundos}`;
+    reloj.classList.toggle('tiempo-excedido', segundosTranscurridos>(segundaParte? 80:40)*60);
 }
 
 document.querySelector('#iniciar-reloj').addEventListener('click', () => {
     if(intervaloReloj!==null) return;
-    estadoReloj.textContent='En marcha';
     intervaloReloj=window.setInterval(() => {
         segundosTranscurridos+=1;
         actualizarReloj();
@@ -64,7 +104,6 @@ document.querySelector('#pausar-reloj').addEventListener('click', () => {
         window.clearInterval(intervaloReloj);
         intervaloReloj=null;
     }
-    estadoReloj.textContent='En pausa';
 });
 
 document.querySelector('#resetear-reloj').addEventListener('click', () => {
@@ -86,7 +125,6 @@ document.querySelector('#resetear-reloj').addEventListener('click', () => {
     periodo.textContent='1. ZATIA';
     segundosTranscurridos=0;
     actualizarReloj();
-    estadoReloj.textContent='En pausa';
 });
 
 document.querySelector('#cambiar-parte').addEventListener('click', () => {

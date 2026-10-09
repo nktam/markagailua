@@ -11,7 +11,7 @@ $isManager = manager_authenticated();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Marcador de rugby</title>
     <link rel="stylesheet" href="css/markagailua.css">
-    <link rel="stylesheet" href="servidor.css">
+    <link rel="stylesheet" href="css/servidor.css">
 </head>
 
 <body data-manager="<?= $isManager ? 'true' : 'false' ?>">
@@ -22,7 +22,7 @@ $isManager = manager_authenticated();
                 <source src="img/fondo.mp4" type="video/mp4">
             </video>
             <video class="video-ensayo" id="video-ensayo" muted playsinline hidden aria-hidden="true">
-                <source src="img/Entxeguadrb.mp4" type="video/mp4">
+                <source src="img/Entseguadrb.mp4" type="video/mp4">
             </video>
             <header class="cabecera">
                 <div class="marcador-central">
@@ -34,7 +34,7 @@ $isManager = manager_authenticated();
 
             <section class="partido" aria-label="Resultado del partido">
                 <div class="equipo anfitrion">
-                    <img class="insignia" src="img/drb.jpg" alt="Escudo del equipo local">
+                    <img class="insignia" src="img/drb.jpg" alt="Escudo de DRB">
                     <span>DONOSTIA RUGBY<br>BALEZALEAK</span>
                     <span class="puntuacion"><span class="puntos" id="puntos-local">0</span><span class="ensayos"
                             id="ensayos-local">0</span></span>
@@ -57,13 +57,11 @@ $isManager = manager_authenticated();
     <?php if ($isManager): ?>
     <aside class="panel-control" aria-label="Panel de control del partido">
         <header class="panel-cabecera">
-            <p>RUGBY / CONTROL</p>
             <h1>Partido</h1>
         </header>
 
         <section class="seccion-control" aria-labelledby="titulo-reloj">
             <h2 id="titulo-reloj">Cronómetro</h2>
-            <p class="estado-reloj" id="estado-reloj" aria-live="polite">En pausa</p>
             <div class="controles-reloj">
                 <button class="boton-reloj" id="iniciar-reloj" type="button"><span class="icono-reloj"
                         aria-hidden="true">▶</span> Iniciar</button>
@@ -74,34 +72,34 @@ $isManager = manager_authenticated();
         </section>
 
         <section class="equipo-control" aria-labelledby="titulo-local">
-            <h2 id="titulo-local">Local</h2>
+            <h2 id="titulo-local">DRB</h2>
             <div class="fila-puntuacion">
                 <span class="acciones-puntuacion">
                     <button class="boton-puntos" type="button" data-team="local" data-points="5" data-try-delta="1"
-                        aria-label="Sumar 5 puntos por ensayo al equipo local"><span class="signo-puntos">+</span>
+                        aria-label="Sumar 5 puntos por ensayo a DRB"><span class="signo-puntos">+</span>
                         Ensayo</button>
                     <button class="boton-puntos restar" type="button" data-team="local" data-points="-5"
-                        data-try-delta="-1" aria-label="Restar 5 puntos por ensayo al equipo local"><span
+                        data-try-delta="-1" aria-label="Restar 5 puntos por ensayo a DRB"><span
                             class="signo-puntos">−</span> Ensayo</button>
                 </span>
             </div>
             <div class="fila-puntuacion">
                 <span class="acciones-puntuacion">
                     <button class="boton-puntos" type="button" data-team="local" data-points="2"
-                        aria-label="Sumar 2 puntos por transformación al equipo local"><span
+                        aria-label="Sumar 2 puntos por transformación a DRB"><span
                             class="signo-puntos">+</span> Transformación</button>
                     <button class="boton-puntos restar" type="button" data-team="local" data-points="-2"
-                        aria-label="Restar 2 puntos por transformación al equipo local"><span
+                        aria-label="Restar 2 puntos por transformación a DRB"><span
                             class="signo-puntos">−</span> Transformación</button>
                 </span>
             </div>
             <div class="fila-puntuacion">
                 <span class="acciones-puntuacion">
                     <button class="boton-puntos" type="button" data-team="local" data-points="3"
-                        aria-label="Sumar 3 puntos por golpe de castigo al equipo local"><span
+                        aria-label="Sumar 3 puntos por golpe de castigo a DRB"><span
                             class="signo-puntos">+</span> Golpe</button>
                     <button class="boton-puntos restar" type="button" data-team="local" data-points="-3"
-                        aria-label="Restar 3 puntos por golpe de castigo al equipo local"><span
+                        aria-label="Restar 3 puntos por golpe de castigo a DRB"><span
                             class="signo-puntos">−</span> Golpe</button>
                 </span>
             </div>
@@ -142,22 +140,17 @@ $isManager = manager_authenticated();
         </section>
         <div class="restablecer-control">
             <button class="boton-reloj" id="resetear-reloj" type="button">Resetear</button>
-            <form class="sesion-control" action="gestion.php" method="post">
-                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
-                <button class="boton-reloj" type="submit" name="action" value="logout">Salir de gestión</button>
-            </form>
         </div>
     </aside>
 
     <aside class="panel-config" aria-label="Panel de configuración">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
         <header class="panel-cabecera">
-            <p>RUGBY / AJUSTES</p>
             <h1>Configuración</h1>
         </header>
         <section class="seccion-control" aria-labelledby="titulo-equipo-visitante">
             <h2 id="titulo-equipo-visitante">Equipo visitante</h2>
-            <label for="seleccionar-visitante">Equipo</label>
-            <select id="seleccionar-visitante">
+            <select id="seleccionar-visitante" aria-label="Equipo visitante">
                 <option value="" selected disabled>Seleccionar equipo</option>
                 <option value="Bisitaria.jpg">BISITARIA</option>
                 <option value="Betsaide Elorrio RT.jpg">BETSAIDE ELORRIO RT</option>
@@ -174,6 +167,22 @@ $isManager = manager_authenticated();
                 <option value="Universitario Bilbao Rugby.jpg">UNIVERSITARIO BILBAO</option>
                 <option value="Uribealdea RKE.jpg">URIBEALEA RKE</option>
             </select>
+        </section>
+        <section class="seccion-control" aria-labelledby="titulo-tamano-marcador">
+            <h2 id="titulo-tamano-marcador">Tamaño del marcador</h2>
+            <div class="campos-tamano">
+                <div>
+                    <label for="ancho-marcador">Ancho (px)</label>
+                    <input id="ancho-marcador" type="number" min="1" max="10000" step="1" value="600">
+                </div>
+                <div>
+                    <label for="alto-marcador">Alto (px)</label>
+                    <input id="alto-marcador" type="number" min="1" max="10000" step="1" value="800">
+                </div>
+            </div>
+            <button class="boton-pantalla-completa" id="pantalla-completa" type="button" aria-pressed="false">
+                Pantalla completa
+            </button>
         </section>
     </aside>
     <?php endif; ?>
