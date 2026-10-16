@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 $error = '';
 $config = app_config();
@@ -48,8 +48,8 @@ if (manager_authenticated()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestión del marcador</title>
-    <link rel="stylesheet" href="css/markagailua.css">
-    <link rel="stylesheet" href="css/servidor.css">
+    <link rel="stylesheet" href="../css/markagailua.css">
+    <link rel="stylesheet" href="../css/servidor.css">
 </head>
 <body class="pagina-gestion">
     <main class="formulario-gestion">
@@ -64,7 +64,7 @@ if (manager_authenticated()) {
             <input id="password" name="password" type="password" autocomplete="current-password" required>
             <button class="boton-reloj" type="submit">Entrar</button>
         </form>
-        <a href="index.php">Volver al marcador</a>
+        <a href="../">Volver al marcador</a>
     </main>
 </body>
 </html>

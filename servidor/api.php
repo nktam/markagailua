@@ -24,8 +24,7 @@ function read_scoreboard(PDO $database): array
 {
     $row = $database->query(
         'SELECT local_points, local_tries, visitor_points, visitor_tries,
-                second_half, elapsed_seconds, is_running, started_at, visitor_logo,
-                event_id, last_try_team
+                second_half, elapsed_seconds, is_running, started_at, visitor_logo
          FROM scoreboard WHERE id = 1'
     )->fetch();
 
@@ -48,8 +47,6 @@ function read_scoreboard(PDO $database): array
         'elapsedSeconds' => $elapsed,
         'running' => (bool) $row['is_running'],
         'visitorLogo' => (string) $row['visitor_logo'],
-        'eventId' => (int) $row['event_id'],
-        'lastTryTeam' => $row['last_try_team'],
         'serverTime' => $now,
     ];
 }
@@ -124,11 +121,6 @@ try {
         );
         $statement->execute([$newPoints, $newTries]);
 
-        if ($tries > 0) {
-            $database->prepare(
-                'UPDATE scoreboard SET event_id = event_id + 1, last_try_team = ? WHERE id = 1'
-            )->execute([$team]);
-        }
     } elseif ($action === 'start') {
         if (!(bool) $row['is_running']) {
             $database->prepare(

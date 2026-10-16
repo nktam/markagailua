@@ -2,9 +2,10 @@ const puntuaciones={local: 0, visitante: 0};
 const ensayos={local: 0, visitante: 0};
 const reloj=document.querySelector('.reloj');
 const periodo=document.querySelector('.periodo');
+const botonAlternarReloj=document.querySelector('#alternar-reloj');
+const iconoReloj=document.querySelector('#icono-reloj');
+const textoReloj=document.querySelector('#texto-reloj');
 const botonPantallaCompleta=document.querySelector('#pantalla-completa');
-const anchoMarcador=document.querySelector('#ancho-marcador');
-const altoMarcador=document.querySelector('#alto-marcador');
 const videoEnsayo=document.querySelector('#video-ensayo');
 const origenVideoEnsayo=document.querySelector('#video-ensayo source');
 const videosEnsayo={
@@ -14,20 +15,6 @@ const videosEnsayo={
 let segundosTranscurridos=0;
 let intervaloReloj=null;
 let segundaParte=false;
-
-function actualizarTamanoMarcador() {
-    const ancho=Number(anchoMarcador.value);
-    const alto=Number(altoMarcador.value);
-    if(!Number.isSafeInteger(ancho) || ancho<1 || ancho>10000
-        || !Number.isSafeInteger(alto) || alto<1 || alto>10000) return;
-
-    document.documentElement.style.setProperty('--scoreboard-width', `${ancho}px`);
-    document.documentElement.style.setProperty('--scoreboard-height', `${alto}px`);
-}
-
-anchoMarcador.addEventListener('input', actualizarTamanoMarcador);
-altoMarcador.addEventListener('input', actualizarTamanoMarcador);
-actualizarTamanoMarcador();
 
 function actualizarBotonPantallaCompleta() {
     const pantallaCompleta=Boolean(document.fullscreenElement);
@@ -91,19 +78,24 @@ function actualizarReloj() {
     reloj.classList.toggle('tiempo-excedido', segundosTranscurridos>(segundaParte? 80:40)*60);
 }
 
-document.querySelector('#iniciar-reloj').addEventListener('click', () => {
-    if(intervaloReloj!==null) return;
-    intervaloReloj=window.setInterval(() => {
-        segundosTranscurridos+=1;
-        actualizarReloj();
-    }, 1000);
-});
+function actualizarBotonReloj() {
+    const enMarcha=intervaloReloj!==null;
+    botonAlternarReloj.classList.toggle('reloj-en-marcha', enMarcha);
+    iconoReloj.textContent=enMarcha? 'Ⅱ':'▶';
+    textoReloj.textContent=enMarcha? 'Pausar':'Iniciar';
+}
 
-document.querySelector('#pausar-reloj').addEventListener('click', () => {
+botonAlternarReloj.addEventListener('click', () => {
     if(intervaloReloj!==null) {
         window.clearInterval(intervaloReloj);
         intervaloReloj=null;
+    } else {
+        intervaloReloj=window.setInterval(() => {
+            segundosTranscurridos+=1;
+            actualizarReloj();
+        }, 1000);
     }
+    actualizarBotonReloj();
 });
 
 document.querySelector('#resetear-reloj').addEventListener('click', () => {
@@ -125,6 +117,7 @@ document.querySelector('#resetear-reloj').addEventListener('click', () => {
     periodo.textContent='1. ZATIA';
     segundosTranscurridos=0;
     actualizarReloj();
+    actualizarBotonReloj();
 });
 
 document.querySelector('#cambiar-parte').addEventListener('click', () => {

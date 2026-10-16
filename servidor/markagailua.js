@@ -1,19 +1,23 @@
 const reloj=document.querySelector('.reloj');
 const periodo=document.querySelector('.periodo');
 const estadoConexion=document.querySelector('#estado-conexion');
+const botonAlternarReloj=document.querySelector('#alternar-reloj');
+const iconoReloj=document.querySelector('#icono-reloj');
+const textoReloj=document.querySelector('#texto-reloj');
 const botonPantallaCompleta=document.querySelector('#pantalla-completa');
-const anchoMarcador=document.querySelector('#ancho-marcador');
-const altoMarcador=document.querySelector('#alto-marcador');
 const videoEnsayo=document.querySelector('#video-ensayo');
 const origenVideoEnsayo=document.querySelector('#video-ensayo source');
 const selectorVisitante=document.querySelector('#seleccionar-visitante');
 const insigniaVisitante=document.querySelector('#insignia-visitante');
 const nombreVisitante=document.querySelector('#nombre-visitante');
 const esGestor=document.body.dataset.manager==='true';
+const esStreaming=document.body.classList.contains('pagina-streaming');
 const csrfToken=document.querySelector('input[name="csrf_token"]')?.value;
+const raizRecursos=document.body.dataset.assetRoot||'';
+const urlApi=document.body.dataset.apiUrl||'api.php';
 const videosEnsayo={
-    local: 'img/Entseguadrb.mp4',
-    visitor: 'img/EntseguaBisitaria.mp4'
+    local: `${raizRecursos}img/Entseguadrb.mp4`,
+    visitor: `${raizRecursos}img/EntseguaBisitaria.mp4`
 };
 const nombresVisitante={
     'Bisitaria.jpg': 'BISITARIA',
@@ -35,12 +39,13 @@ let segundosBase=0;
 let instanteBase=performance.now();
 let relojEnMarcha=false;
 let segundaParte=false;
-let ultimoEvento=null;
 
-videoEnsayo.addEventListener('ended', () => {
-    videoEnsayo.hidden=true;
-    videoEnsayo.currentTime=0;
-});
+if(videoEnsayo) {
+    videoEnsayo.addEventListener('ended', () => {
+        videoEnsayo.hidden=true;
+        videoEnsayo.currentTime=0;
+    });
+}
 
 function reproducirVideoEnsayo(equipo) {
     origenVideoEnsayo.setAttribute('src', videosEnsayo[equipo]);
@@ -67,21 +72,15 @@ function actualizarBotonPantallaCompleta() {
     botonPantallaCompleta.setAttribute('aria-pressed', pantallaCompleta.toString());
 }
 
+function actualizarBotonReloj() {
+    if(!botonAlternarReloj) return;
+
+    botonAlternarReloj.classList.toggle('reloj-en-marcha', relojEnMarcha);
+    iconoReloj.textContent=relojEnMarcha? 'Ⅱ':'▶';
+    textoReloj.textContent=relojEnMarcha? 'Pausar':'Iniciar';
+}
+
 if(botonPantallaCompleta) {
-    function actualizarTamanoMarcador() {
-        const ancho=Number(anchoMarcador.value);
-        const alto=Number(altoMarcador.value);
-        if(!Number.isSafeInteger(ancho) || ancho<1 || ancho>10000
-            || !Number.isSafeInteger(alto) || alto<1 || alto>10000) return;
-
-        document.documentElement.style.setProperty('--scoreboard-width', `${ancho}px`);
-        document.documentElement.style.setProperty('--scoreboard-height', `${alto}px`);
-    }
-
-    anchoMarcador.addEventListener('input', actualizarTamanoMarcador);
-    altoMarcador.addEventListener('input', actualizarTamanoMarcador);
-    actualizarTamanoMarcador();
-
     if(document.fullscreenEnabled && document.documentElement.requestFullscreen) {
         botonPantallaCompleta.addEventListener('click', async () => {
             try {
@@ -116,32 +115,26 @@ function aplicarEstado(estado) {
     document.querySelector('#puntos-visitante').textContent=estado.visitorPoints;
     document.querySelector('#ensayos-visitante').textContent=estado.visitorTries;
     segundaParte=estado.secondHalf;
-    periodo.textContent=segundaParte? '2. ZATIA':'1. ZATIA';
+    if(periodo) periodo.textContent=segundaParte? '2. ZATIA':'1. ZATIA';
     segundosBase=estado.elapsedSeconds;
     instanteBase=performance.now();
     relojEnMarcha=estado.running;
+    actualizarBotonReloj();
     renderizarReloj();
 
     const equipo=nombresVisitante[estado.visitorLogo];
-    insigniaVisitante.src=`img/equipos/${encodeURIComponent(estado.visitorLogo)}`;
+    insigniaVisitante.src=`${raizRecursos}img/equipos/${encodeURIComponent(estado.visitorLogo)}`;
     insigniaVisitante.alt=equipo? `Escudo de ${equipo}`:'Escudo del equipo visitante';
-    if(equipo) nombreVisitante.textContent=equipo;
+    if(equipo) nombreVisitante.textContent=esStreaming? equipo.slice(0, 3):equipo;
     if(selectorVisitante) {
         selectorVisitante.value=estado.visitorLogo;
         if(equipo) document.querySelector('#titulo-visitante').textContent=equipo;
-    }
-
-    if(ultimoEvento===null) {
-        ultimoEvento=estado.eventId;
-    } else if(estado.eventId!==ultimoEvento) {
-        ultimoEvento=estado.eventId;
-        if(estado.lastTryTeam) reproducirVideoEnsayo(estado.lastTryTeam);
     }
 }
 
 async function consultarEstado() {
     try {
-        const response=await fetch('api.php', {cache: 'no-store'});
+        const response=await fetch(urlApi, {cache: 'no-store'});
         const estado=await response.json();
         if(!response.ok) throw new Error(estado.error||'No se pudo consultar el marcador.');
         aplicarEstado(estado);
@@ -155,7 +148,7 @@ async function consultarEstado() {
 
 async function enviarAccion(datos) {
     try {
-        const response=await fetch('api.php', {
+        const response=await fetch(urlApi, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -166,6 +159,9 @@ async function enviarAccion(datos) {
         const resultado=await response.json();
         if(!response.ok) throw new Error(resultado.error||'No se pudo guardar el cambio.');
         aplicarEstado(resultado);
+        if(datos.action==='score' && datos.tries>0) {
+            reproducirVideoEnsayo(datos.team);
+        }
         estadoConexion.hidden=true;
     } catch(error) {
         mostrarError(error.message||'No se pudo guardar el cambio.');
@@ -173,8 +169,9 @@ async function enviarAccion(datos) {
 }
 
 if(esGestor) {
-    document.querySelector('#iniciar-reloj').addEventListener('click', () => enviarAccion({action: 'start'}));
-    document.querySelector('#pausar-reloj').addEventListener('click', () => enviarAccion({action: 'pause'}));
+    botonAlternarReloj.addEventListener('click', () => {
+        enviarAccion({action: relojEnMarcha? 'pause':'start'});
+    });
     document.querySelector('#cambiar-parte').addEventListener('click', () => enviarAccion({action: 'half'}));
 
     document.querySelector('#resetear-reloj').addEventListener('click', () => {

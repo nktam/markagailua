@@ -55,10 +55,10 @@
         <section class="seccion-control" aria-labelledby="titulo-reloj">
             <h2 id="titulo-reloj">Cronómetro</h2>
             <div class="controles-reloj">
-                <button class="boton-reloj" id="iniciar-reloj" type="button"><span class="icono-reloj"
-                        aria-hidden="true">▶</span> Iniciar</button>
-                <button class="boton-reloj" id="pausar-reloj" type="button"><span class="icono-reloj"
-                        aria-hidden="true">Ⅱ</span> Pausar</button>
+                <button class="boton-reloj" id="alternar-reloj" type="button">
+                    <span class="icono-reloj" id="icono-reloj" aria-hidden="true">▶</span>
+                    <span id="texto-reloj">Iniciar</span>
+                </button>
                 <button class="boton-reloj" id="cambiar-parte" type="button">Cambiar parte</button>
             </div>
         </section>
@@ -159,18 +159,7 @@
                 <option value="Uribealdea RKE.jpg">URIBEALEA RKE</option>
             </select>
         </section>
-        <section class="seccion-control" aria-labelledby="titulo-tamano-marcador">
-            <h2 id="titulo-tamano-marcador">Tamaño del marcador</h2>
-            <div class="campos-tamano">
-                <div>
-                    <label for="ancho-marcador">Ancho (px)</label>
-                    <input id="ancho-marcador" type="number" min="1" max="10000" step="1" value="600">
-                </div>
-                <div>
-                    <label for="alto-marcador">Alto (px)</label>
-                    <input id="alto-marcador" type="number" min="1" max="10000" step="1" value="800">
-                </div>
-            </div>
+        <section class="seccion-control" aria-label="Pantalla completa">
             <button class="boton-pantalla-completa" id="pantalla-completa" type="button" aria-pressed="false">
                 Pantalla completa
             </button>

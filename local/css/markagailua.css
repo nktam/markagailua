@@ -34,8 +34,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: var(--scoreboard-width, 600px);
-    height: var(--scoreboard-height, 800px);
+    width: 770px;
+    height: 770px;
     background-color: rgb(255, 255, 255);
     display: grid;
     place-items: center;
@@ -114,8 +114,8 @@
 
 .insignia {
     display: block;
-    width: 96px;
-    height: 96px;
+    width: 120px;
+    height: 120px;
     padding: 10px;
     border: 0;
     border-radius: 50%;
@@ -155,7 +155,7 @@
 .reloj {
     padding: 0 24px 8px;
     color: #ffffff;
-    font: 700 50px/1 Consolas, monospace;
+    font: 700 72px/1 Consolas, monospace;
     font-variant-numeric: tabular-nums;
     text-align: center;
 }
@@ -165,8 +165,8 @@
 }
 
 .periodo {
-    color: #d8e0d8;
-    font: 700 12px/1.2 Arial, sans-serif;
+    color: #ffeb3b;
+    font: 700 18px/1.2 Arial, sans-serif;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -195,7 +195,7 @@
 
 .panel-control {
     position: absolute;
-    left: calc(var(--scoreboard-width, 600px) + 20px);
+    left: calc(770px + 20px);
     top: 0;
     width: 320px;
     height: 800px;
@@ -210,7 +210,7 @@
 
 .panel-config {
     position: absolute;
-    left: calc(var(--scoreboard-width, 600px) + 360px);
+    left: calc(770px + 360px);
     top: 0;
     width: 280px;
     height: 800px;
@@ -228,24 +228,6 @@
 }
 
 .panel-config select {
-    width: 100%;
-    min-height: 40px;
-    padding: 8px 10px;
-    color: #173d32;
-    background: #fff;
-    border: 1px solid #a8b5a8;
-    border-radius: 3px;
-    font: 14px Arial, sans-serif;
-}
-
-.campos-tamano {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.panel-config input[type="number"] {
-    box-sizing: border-box;
     width: 100%;
     min-height: 40px;
     padding: 8px 10px;
@@ -309,7 +291,7 @@
     background: #285c4b;
 }
 
-#iniciar-reloj {
+#alternar-reloj {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -317,19 +299,15 @@
     background: #26734d;
 }
 
-#iniciar-reloj:hover {
+#alternar-reloj:hover {
     background: #1c5d3d;
 }
 
-#pausar-reloj {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+#alternar-reloj.reloj-en-marcha {
     background: #b43c35;
 }
 
-#pausar-reloj:hover {
+#alternar-reloj.reloj-en-marcha:hover {
     background: #8f2f2a;
 }
 

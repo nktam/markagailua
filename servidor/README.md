@@ -1,6 +1,6 @@
 # Marcador compartido
 
-La página pública (`servidor/index.php`) muestra únicamente el marcador. Cualquier cambio se guarda en MySQL y los navegadores conectados reciben el estado actualizado automáticamente. Para gestionar, abre `servidor/gestion.php` e inicia sesión con la clave privada configurada en el servidor.
+La página pública de solo visualización está en `servidor/index.php`. Para gestionar, abre `servidor/admin/gestion.php` e inicia sesión con la clave privada configurada en el servidor. El panel de gestión está en `servidor/admin/`.
 
 ## Requisitos
 
@@ -13,7 +13,17 @@ La página pública (`servidor/index.php`) muestra únicamente el marcador. Cual
 1. Importa `schema.sql` en MySQL. Crea la base de datos `markagailua` y la tabla con el estado inicial.
 2. Copia `config.example.php` como `config.php` y ajusta la conexión a MySQL.
 3. Guarda la clave de gestión directamente en `config.php` como `admin_password`. No publiques ni compartas `config.php`; está excluido de Git.
-4. Publica la carpeta `servidor/` completa, incluida `img/` y `css/`, en un servidor con HTTPS y abre `index.php`. El marcador es de solo lectura para los visitantes; el gestor entra por `gestion.php`.
+4. Publica la carpeta `servidor/` completa, incluida `admin/`, `img/` y `css/`, en un servidor con HTTPS. Los visitantes pueden abrir `/`; el gestor inicia sesión en `/admin/gestion.php`.
+
+La página de solo visualización, sin controles de gestión, está en `index.php`. Su presentación se configura en `css/streaming.css`.
+
+Si la tabla `scoreboard` ya existía antes de esta versión, elimina las columnas que ya no se usan ejecutando una vez:
+
+```sql
+ALTER TABLE scoreboard
+    DROP COLUMN event_id,
+    DROP COLUMN last_try_team;
+```
 
 Ejemplo de `config.php`:
 
@@ -34,4 +44,4 @@ La clave se guarda como texto en la configuración del servidor; protege ese arc
 
 Los navegadores consultan el estado compartido cada segundo. El cronómetro se calcula en el servidor, por lo que sigue avanzando correctamente aunque se cierre la pestaña del gestor.
 
-En el panel de configuración de la pantalla de gestión se puede ajustar el ancho y el alto del marcador en píxeles. Este tamaño solo se aplica al navegador donde se cambian los valores; el marcador público mantiene su tamaño predeterminado.
+El marcador tiene un tamaño fijo de 770 × 770 píxeles en las versiones local y de servidor.
