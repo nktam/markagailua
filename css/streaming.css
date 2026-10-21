@@ -1,3 +1,5 @@
+div{margin:0; padding: 0;}
+
 body {
     min-height: 100vh;
     margin: 0;
@@ -21,28 +23,33 @@ body {
     padding: 0;
     color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.resultado {
     display: grid;
-    grid-template-columns: max-content max-content max-content max-content;
-    align-items: center;
-    gap: 1px;
-
+    grid-template: 
+    "drb drb_mark bisit_mark bisit crono"
+    "nada drb_foot bisit_foot ez none" 
+    / 80px 40px 40px 80px 40px;
 }
-
 
 .identidad-equipo {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
     font: 700 14px/1.2 Arial, Helvetica, sans-serif;
-    justify-self: center;
     padding: 2px;
 }
 
+.identidad-equipo.equipo-local {
+    grid-area: drb;
+    width: 80px;
+    background-color: #1d3ba0;
+    border-bottom-left-radius: 10px;
+}
+
+.identidad-equipo.equipo-visitante {
+    grid-area: bisit;
+    width: 80px;
+    background-color: #de3f3f;
+    border-bottom-right-radius: 10px;
+}
+
 .insignia {
-    flex: 0 0 30px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -52,67 +59,60 @@ body {
 
 .puntos {
     font: 700 22px/1 Arial, Helvetica, sans-serif;
-    justify-self: center;
-    padding: 6px;
+    width: 40px;
+}
+
+#puntos-local{
+    grid-area: drb_mark;
+    background-color: #1d3ba0;
+    width: 40px;
+    
+}
+
+#puntos-visitante{
+    grid-area: bisit_mark;
+    background-color: #de3f3f;
+    
 }
 
 .ensayos {
     font: 400 11px/1 Arial, Helvetica, sans-serif;
-    text-align: center;
+    padding: 2px;
 }
 
-div#ensayos-local{
+.ensayos::after {
+    content: " E";
+}
+
+#ensayos-local{
+    grid-area: drb_foot;
     background-color: #1d3ba0;
-    padding: 4px;
-}
-
-div#ensayos-visitante{
-    background-color: #881f1f;
-    padding: 4px;
-}
-
-div#puntos-local{
-    background-color: #1d3ba0;
-}
-
-div#puntos-visitante{
-    background-color: #881f1f;
-}
-
-div.identidad-equipo.equipo-local {
-    background-color: #2a56e9;
-    padding: 0px 4px;
     border-bottom-left-radius: 10px;
 }
 
-div.identidad-equipo.equipo-visitante {
+#ensayos-visitante{
+    grid-area: bisit_foot;
     background-color: #de3f3f;
-    padding: 0px 4px;
     border-bottom-right-radius: 10px;
 }
 
+
+
 .reloj {
+    grid-area: crono;
     color: #ffffff;
     font: 700 13px/1 Arial, Helvetica, sans-serif;
     font-variant-numeric: tabular-nums;
-    text-align: right;
-}
-
-div.reloj {
     background-color: #323232;
-    padding: 3px 6px;
 }
 
-.periodo {
-    color: #ffffff;
-    font: 400 11px/1 Arial, Helvetica, sans-serif;
-    text-align: left;
+.reloj, .ensayos, .identidad-equipo.equipo-local, .identidad-equipo.equipo-visitante, #puntos-local, #puntos-visitante{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-div.periodo {
-    background-color: #323232;
-    padding: 4px 6px;
-}
+
 
 div.reloj.tiempo-excedido {
     background-color: #f80f02;

@@ -125,6 +125,10 @@
     letter-spacing: 0;
 }
 
+.ensayos::after {
+    content: " E";
+}
+
 .reloj {
     padding: 0 24px 8px;
     color: #ffffff;

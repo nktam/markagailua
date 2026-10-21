@@ -1,6 +1,6 @@
 # Marcador compartido
 
-La página pública de solo visualización está en `servidor/index.php`. Para gestionar, abre `servidor/admin/gestion.php` e inicia sesión con la clave privada configurada en el servidor. El panel de gestión está en `servidor/admin/`.
+La página pública de solo visualización está en `servidor/index.php`. Para gestionar, abre `servidor/admin/`; se solicitará la clave privada configurada en el servidor antes de mostrar el panel.
 
 ## Requisitos
 
@@ -13,7 +13,7 @@ La página pública de solo visualización está en `servidor/index.php`. Para g
 1. Importa `schema.sql` en MySQL. Crea la base de datos `markagailua` y la tabla con el estado inicial.
 2. Copia `config.example.php` como `config.php` y ajusta la conexión a MySQL.
 3. Guarda la clave de gestión directamente en `config.php` como `admin_password`. No publiques ni compartas `config.php`; está excluido de Git.
-4. Publica la carpeta `servidor/` completa, incluida `admin/`, `img/` y `css/`, en un servidor con HTTPS. Los visitantes pueden abrir `/`; el gestor inicia sesión en `/admin/gestion.php`.
+4. Publica la carpeta `servidor/` completa, incluida `admin/`, `img/` y `css/`, en un servidor con HTTPS. Los visitantes pueden abrir `/`; el gestor inicia sesión en `/admin/`.
 
 La página de solo visualización, sin controles de gestión, está en `index.php`. Su presentación se configura en `css/streaming.css`.
 

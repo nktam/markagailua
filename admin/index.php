@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
 
+if (!manager_authenticated()) {
+    header('Location: gestion.php');
+    exit;
+}
+
 $isManager = manager_authenticated();
 ?>
 <!doctype html>
@@ -54,7 +59,7 @@ $isManager = manager_authenticated();
         </main>
     </div>
 
-    <?php if ($isManager): ?>
+
     <aside class="panel-control" aria-label="Panel de control del partido">
         <header class="panel-cabecera">
             <h1>Partido</h1>
@@ -174,9 +179,8 @@ $isManager = manager_authenticated();
             </button>
         </section>
     </aside>
-    <?php endif; ?>
 
-    <script src="../markagailua.js"></script>
+    <script src="../js/markagailua.js"></script>
 </body>
 
 </html>
