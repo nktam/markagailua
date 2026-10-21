@@ -15,6 +15,18 @@ La página pública de solo visualización está en `servidor/index.php`. Para g
 3. Guarda la clave de gestión directamente en `config.php` como `admin_password`. No publiques ni compartas `config.php`; está excluido de Git.
 4. Publica la carpeta `servidor/` completa, incluida `admin/`, `img/` y `css/`, en un servidor con HTTPS. Los visitantes pueden abrir `/`; el gestor inicia sesión en `/admin/`.
 
+## Ejecutar en local con Docker
+
+Necesitas Docker Desktop con Docker Compose. Desde la raíz del proyecto, ejecuta:
+
+```sh
+docker compose up --build
+```
+
+Abre `http://localhost:8080` para ver el marcador y `http://localhost:8080/admin/` para acceder al panel de gestión. La clave local predeterminada es `cambia-esta-clave`; puedes cambiarla definiendo `ADMIN_PASSWORD` antes de iniciar Compose. La base de datos MySQL y su esquema se inicializan automáticamente la primera vez y se conservan en el volumen `mysql_data`.
+
+Para detener los contenedores, pulsa `Ctrl+C` y ejecuta `docker compose down`. Para borrar también la base de datos local, ejecuta `docker compose down -v`.
+
 La página de solo visualización, sin controles de gestión, está en `index.php`. Su presentación se configura en `css/streaming.css`.
 
 Si la tabla `scoreboard` ya existía antes de esta versión, elimina las columnas que ya no se usan ejecutando una vez:

@@ -1,0 +1,19 @@
+.pagina-movil {
+    min-height: 100vh;
+    margin: 0;
+    padding: 16px;
+    background: #123d32;
+    font-family: Arial, sans-serif;
+}
+
+.pagina-movil .panel-control,
+.pagina-movil .panel-config {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.pagina-movil .restablecer-control {
+    margin-top: 0;
+}

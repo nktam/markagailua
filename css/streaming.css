@@ -27,83 +27,84 @@ body {
     grid-template: 
     "drb drb_mark bisit_mark bisit crono"
     "nada drb_foot bisit_foot ez none" 
-    / 80px 40px 40px 80px 40px;
+    / 130px 70px 70px 130px 90px;
 }
 
 .identidad-equipo {
-    font: 700 14px/1.2 Arial, Helvetica, sans-serif;
+    font: 700 18px/1.2 Arial, Helvetica, sans-serif;
     padding: 2px;
 }
 
 .identidad-equipo.equipo-local {
     grid-area: drb;
-    width: 80px;
+    width: 130px;
     background-color: #1d3ba0;
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 5px;
 }
 
 .identidad-equipo.equipo-visitante {
     grid-area: bisit;
-    width: 80px;
+    width: 130px;
     background-color: #de3f3f;
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 5px;
 }
 
 .insignia {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: contain;
-    padding: 2px;
+    padding: 0 2px;
+    margin:0 5px;
+    background-color: #ffffff;
 }
 
 .puntos {
-    font: 700 22px/1 Arial, Helvetica, sans-serif;
-    width: 40px;
+    font: 700 30px/1 Arial, Helvetica, sans-serif;
+    width: 70px;
 }
 
 #puntos-local{
     grid-area: drb_mark;
     background-color: #1d3ba0;
-    width: 40px;
-    
 }
 
 #puntos-visitante{
     grid-area: bisit_mark;
     background-color: #de3f3f;
-    
 }
 
 .ensayos {
-    font: 400 11px/1 Arial, Helvetica, sans-serif;
-    padding: 2px;
+    font: 400 16px/1 Arial, Helvetica, sans-serif;
+    padding: 0 0 4px;
 }
 
 .ensayos::after {
-    content: " E";
+    content: "E";
 }
 
 #ensayos-local{
     grid-area: drb_foot;
     background-color: #1d3ba0;
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 5px;
 }
 
 #ensayos-visitante{
     grid-area: bisit_foot;
     background-color: #de3f3f;
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 5px;
 }
-
-
 
 .reloj {
     grid-area: crono;
     color: #ffffff;
-    font: 700 13px/1 Arial, Helvetica, sans-serif;
+    font: 700 24px/1 Arial, Helvetica, sans-serif;
     font-variant-numeric: tabular-nums;
     background-color: #323232;
+    margin: 0 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 90px;
 }
 
 .reloj, .ensayos, .identidad-equipo.equipo-local, .identidad-equipo.equipo-visitante, #puntos-local, #puntos-visitante{
@@ -111,8 +112,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-
 
 div.reloj.tiempo-excedido {
     background-color: #f80f02;

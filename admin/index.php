@@ -28,6 +28,7 @@ $isManager = manager_authenticated();
     <?php include __DIR__ . '/includes/panelConfig.php'; ?>
 
     <script src="../js/markagailua.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 
 </html>
