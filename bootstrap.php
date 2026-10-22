@@ -41,7 +41,29 @@ function start_app_session(): void
 
 function manager_authenticated(): bool
 {
-    return ($_SESSION['manager_authenticated'] ?? false) === true;
+    if (($_SESSION['manager_authenticated'] ?? false) !== true) {
+        return false;
+    }
+
+    $now = time();
+    $lastActivity = $_SESSION['manager_last_activity'] ?? null;
+    if (!is_int($lastActivity)) {
+        $_SESSION['manager_last_activity'] = $now;
+        return true;
+    }
+
+    if ($lastActivity > $now || $now - $lastActivity >= 1800) {
+        unset(
+            $_SESSION['manager_authenticated'],
+            $_SESSION['manager_last_activity'],
+            $_SESSION['csrf_token']
+        );
+        session_regenerate_id(true);
+        return false;
+    }
+
+    $_SESSION['manager_last_activity'] = $now;
+    return true;
 }
 
 function csrf_token(): string

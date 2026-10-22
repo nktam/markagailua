@@ -54,6 +54,8 @@ También se admiten las variables de entorno `DB_HOST`, `DB_NAME`, `DB_USER`, `D
 
 La clave se guarda como texto en la configuración del servidor; protege ese archivo y utiliza HTTPS al publicar la aplicación.
 
+La sesión de gestión se cierra automáticamente tras 30 minutos sin actividad en el panel. También puedes cerrarla en cualquier momento con el botón «Cerrar sesión».
+
 Los navegadores consultan el estado compartido cada segundo. El cronómetro se calcula en el servidor, por lo que sigue avanzando correctamente aunque se cierre la pestaña del gestor.
 
 El marcador tiene un tamaño fijo de 770 × 770 píxeles en las versiones local y de servidor.

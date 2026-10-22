@@ -28,4 +28,9 @@
             Pantalla completa
         </button>
     </section>
+    <form action="<?= str_contains($_SERVER['SCRIPT_NAME'] ?? '', '/anoeta/') ? '../gestion.php' : 'gestion.php' ?>" method="post">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+        <input type="hidden" name="action" value="logout">
+        <button class="boton-pantalla-completa" type="submit">Cerrar sesión</button>
+    </form>
 </aside>

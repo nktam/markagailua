@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             session_regenerate_id(true);
             $_SESSION['manager_authenticated'] = true;
+            $_SESSION['manager_last_activity'] = time();
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
             header('Location: index.php');
             exit;
