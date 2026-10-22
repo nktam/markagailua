@@ -17,15 +17,22 @@
             <div class="equipo anfitrion">
                 <img class="insignia" src="../../img/drb.jpg" alt="Escudo de DRB">
                 <span>DONOSTIA RUGBY<br>BALEZALEAK</span>
-                <span class="puntuacion"><span class="puntos" id="puntos-local">0</span><span class="ensayos"
-                        id="ensayos-local">0</span></span>
+                <span class="puntuacion">
+                    <span class="puntos" id="puntos-local">0</span>
+                    <span class="ensayos" id="ensayos-local">0</span>
+                    <span class="tarjetas" id="tarjetas-local"></span>
+                </span>
             </div>
 
             <div class="equipo visitante">
                 <img class="insignia" id="insignia-visitante" src="../../img/equipos/Bisitaria.jpg" alt="">
                 <span id="nombre-visitante">BISITARIA</span>
-                <span class="puntuacion"><span class="puntos" id="puntos-visitante">0</span><span class="ensayos"
-                        id="ensayos-visitante">0</span></span>
+                <span class="puntuacion">
+                    <span class="puntos" id="puntos-visitante">0</span>
+                    <span class="tarjetas" id="tarjetas-visitante"></span>
+                    <span class="ensayos" id="ensayos-visitante">0</span>
+
+                </span>
             </div>
         </section>
 

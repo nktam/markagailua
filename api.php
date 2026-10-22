@@ -24,6 +24,7 @@ function read_scoreboard(PDO $database): array
 {
     $row = $database->query(
         'SELECT local_points, local_tries, visitor_points, visitor_tries,
+                local_yellow_cards, local_red_cards, visitor_yellow_cards, visitor_red_cards,
                 second_half, elapsed_seconds, is_running, started_at, visitor_logo
          FROM scoreboard WHERE id = 1'
     )->fetch();
@@ -41,8 +42,12 @@ function read_scoreboard(PDO $database): array
     return [
         'localPoints' => (int) $row['local_points'],
         'localTries' => (int) $row['local_tries'],
+        'localYellowCards' => (int) $row['local_yellow_cards'],
+        'localRedCards' => (int) $row['local_red_cards'],
         'visitorPoints' => (int) $row['visitor_points'],
         'visitorTries' => (int) $row['visitor_tries'],
+        'visitorYellowCards' => (int) $row['visitor_yellow_cards'],
+        'visitorRedCards' => (int) $row['visitor_red_cards'],
         'secondHalf' => (bool) $row['second_half'],
         'elapsedSeconds' => $elapsed,
         'running' => (bool) $row['is_running'],
@@ -89,6 +94,7 @@ try {
     $database->beginTransaction();
     $row = $database->query(
         'SELECT local_points, local_tries, visitor_points, visitor_tries,
+                local_yellow_cards, local_red_cards, visitor_yellow_cards, visitor_red_cards,
                 second_half, elapsed_seconds, is_running, started_at
          FROM scoreboard WHERE id = 1 FOR UPDATE'
     )->fetch();
@@ -121,6 +127,20 @@ try {
         );
         $statement->execute([$newPoints, $newTries]);
 
+    } elseif ($action === 'card') {
+        $team = $body['team'] ?? null;
+        $color = $body['color'] ?? null;
+        $delta = required_integer($body, 'delta');
+
+        if (!in_array($team, ['local', 'visitor'], true)
+            || !in_array($color, ['yellow', 'red'], true)
+            || !in_array($delta, [-1, 1], true)) {
+            throw new ApiException('El cambio de tarjeta no es válido.', 400);
+        }
+
+        $column = $team . '_' . $color . '_cards';
+        $count = max(0, (int) $row[$column] + $delta);
+        $database->prepare("UPDATE scoreboard SET {$column} = ? WHERE id = 1")->execute([$count]);
     } elseif ($action === 'start') {
         if (!(bool) $row['is_running']) {
             $database->prepare(
@@ -143,6 +163,8 @@ try {
         $database->exec(
             'UPDATE scoreboard
              SET local_points = 0, local_tries = 0, visitor_points = 0, visitor_tries = 0,
+                 local_yellow_cards = 0, local_red_cards = 0,
+                 visitor_yellow_cards = 0, visitor_red_cards = 0,
                  second_half = 0, elapsed_seconds = 0, is_running = 0, started_at = NULL
              WHERE id = 1'
         );

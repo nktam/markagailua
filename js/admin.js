@@ -143,6 +143,17 @@ document.querySelectorAll('[data-team][data-points]').forEach((boton) => {
     });
 });
 
+document.querySelectorAll('[data-team][data-card-color]').forEach((boton) => {
+    boton.addEventListener('click', () => {
+        enviarAccion({
+            action: 'card',
+            team: boton.dataset.team==='visitante'? 'visitor':'local',
+            color: boton.dataset.cardColor,
+            delta: Number(boton.dataset.cardDelta)
+        });
+    });
+});
+
 if(selectorVisitante) {
     selectorVisitante.addEventListener('change', () => {
         enviarAccion({action: 'visitor', logo: selectorVisitante.value});

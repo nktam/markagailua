@@ -1,8 +1,5 @@
 <aside class="panel-config" aria-label="Panel de configuración">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
-    <header class="panel-cabecera">
-        <h1>Configuración</h1>
-    </header>
     <section class="seccion-control" aria-labelledby="titulo-equipo-visitante">
         <h2 id="titulo-equipo-visitante">Equipo visitante</h2>
         <select id="seleccionar-visitante" aria-label="Equipo visitante">
@@ -27,6 +24,9 @@
         <button class="boton-pantalla-completa" id="pantalla-completa" type="button" aria-pressed="false">
             Pantalla completa
         </button>
+    </section>
+    <section class="seccion-control" aria-label="Reiniciar marcador">
+        <button class="boton-reloj" id="resetear-reloj" type="button">Resetear</button>
     </section>
     <form action="<?= str_contains($_SERVER['SCRIPT_NAME'] ?? '', '/anoeta/') ? '../gestion.php' : 'gestion.php' ?>" method="post">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">

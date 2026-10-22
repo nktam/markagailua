@@ -23,8 +23,10 @@
                 <span id="nombre-visitante">BIS</span>
             </div>
             <div class="reloj">00:00</div>
+            <span class="tarjetas" id="tarjetas-local"></span>
             <div class="ensayos" id="ensayos-local">0</div>
             <div class="ensayos" id="ensayos-visitante">0</div>
+            <span class="tarjetas" id="tarjetas-visitante"></span>
 
 
 

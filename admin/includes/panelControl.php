@@ -1,8 +1,4 @@
 <aside class="panel-control" aria-label="Panel de control del partido">
-    <header class="panel-cabecera">
-        <h1>Partido</h1>
-    </header>
-
     <section class="seccion-control" aria-labelledby="titulo-reloj">
         <h2 id="titulo-reloj">Cronómetro</h2>
         <div class="controles-reloj">
@@ -46,6 +42,18 @@
                         class="signo-puntos">−</span> Golpe</button>
             </span>
         </div>
+        <div class="fila-puntuacion">
+            <span class="acciones-puntuacion">
+                <button class="boton-puntos" type="button" data-team="local" data-card-color="yellow"
+                    data-card-delta="1" aria-label="Añadir tarjeta amarilla a DRB">+ Amarilla</button>
+                <button class="boton-puntos restar" type="button" data-team="local" data-card-color="yellow"
+                    data-card-delta="-1" aria-label="Retirar tarjeta amarilla a DRB">− Amarilla</button>
+                <button class="boton-puntos" type="button" data-team="local" data-card-color="red"
+                    data-card-delta="1" aria-label="Añadir tarjeta roja a DRB">+ Roja</button>
+                <button class="boton-puntos restar" type="button" data-team="local" data-card-color="red"
+                    data-card-delta="-1" aria-label="Retirar tarjeta roja a DRB">− Roja</button>
+            </span>
+        </div>
     </section>
 
     <section class="equipo-control visitante-control" aria-labelledby="titulo-visitante">
@@ -80,8 +88,17 @@
                         class="signo-puntos">−</span> Golpe</button>
             </span>
         </div>
+        <div class="fila-puntuacion">
+            <span class="acciones-puntuacion">
+                <button class="boton-puntos" type="button" data-team="visitante" data-card-color="yellow"
+                    data-card-delta="1" aria-label="Añadir tarjeta amarilla al equipo visitante">+ Amarilla</button>
+                <button class="boton-puntos restar" type="button" data-team="visitante" data-card-color="yellow"
+                    data-card-delta="-1" aria-label="Retirar tarjeta amarilla al equipo visitante">− Amarilla</button>
+                <button class="boton-puntos" type="button" data-team="visitante" data-card-color="red"
+                    data-card-delta="1" aria-label="Añadir tarjeta roja al equipo visitante">+ Roja</button>
+                <button class="boton-puntos restar" type="button" data-team="visitante" data-card-color="red"
+                    data-card-delta="-1" aria-label="Retirar tarjeta roja al equipo visitante">− Roja</button>
+            </span>
+        </div>
     </section>
-    <div class="restablecer-control">
-        <button class="boton-reloj" id="resetear-reloj" type="button">Resetear</button>
-    </div>
 </aside>

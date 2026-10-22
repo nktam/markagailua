@@ -83,6 +83,8 @@ function aplicarEstado(estado) {
     if(ensayosLocal) ensayosLocal.textContent=estado.localTries;
     if(puntosVisitante) puntosVisitante.textContent=estado.visitorPoints;
     if(ensayosVisitante) ensayosVisitante.textContent=estado.visitorTries;
+    actualizarTarjetas('local', estado.localYellowCards, estado.localRedCards);
+    actualizarTarjetas('visitante', estado.visitorYellowCards, estado.visitorRedCards);
     segundaParte=estado.secondHalf;
     if(periodo) periodo.textContent=segundaParte? '2. ZATIA':'1. ZATIA';
     segundosBase=estado.elapsedSeconds;
@@ -96,6 +98,29 @@ function aplicarEstado(estado) {
         insigniaVisitante.alt=equipo? `Escudo de ${equipo}`:'Escudo del equipo visitante';
     }
     if(equipo && nombreVisitante) nombreVisitante.textContent=esStreaming? equipo.slice(0, 3):equipo;
+}
+
+function actualizarTarjetas(equipo, amarillas, rojas) {
+    const contenedor=document.querySelector(`#tarjetas-${equipo}`);
+    if(!contenedor) return;
+
+    contenedor.replaceChildren();
+    const tarjetas=[
+        {color: 'amarilla', cantidad: amarillas, nombre: 'amarilla'},
+        {color: 'roja', cantidad: rojas, nombre: 'roja'}
+    ];
+    const total=tarjetas.reduce((suma, tarjeta) => suma+tarjeta.cantidad, 0);
+    contenedor.setAttribute('aria-label', total? `${total} ${total===1? 'tarjeta':'tarjetas'}`:'');
+
+    tarjetas.forEach(({color, cantidad, nombre}) => {
+        if(cantidad<1) return;
+
+        const badge=document.createElement('span');
+        badge.className=`tarjeta tarjeta-${color}`;
+        badge.setAttribute('aria-label', `${cantidad} ${nombre}${cantidad===1? '':'s'}`);
+        badge.textContent=cantidad>1? cantidad.toString():'';
+        contenedor.append(badge);
+    });
 }
 
 async function consultarEstado() {

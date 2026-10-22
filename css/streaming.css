@@ -26,7 +26,7 @@ body {
     display: grid;
     grid-template: 
     "drb drb_mark bisit_mark bisit crono"
-    "nada drb_foot bisit_foot ez none" 
+    "drb_card drb_foot bisit_foot bisit_card none"
     / 130px 70px 70px 130px 90px;
 }
 
@@ -38,14 +38,14 @@ body {
 .identidad-equipo.equipo-local {
     grid-area: drb;
     width: 130px;
-    background-color: #1d3ba0;
+    background-color: #276baa;
     border-bottom-left-radius: 5px;
 }
 
 .identidad-equipo.equipo-visitante {
     grid-area: bisit;
     width: 130px;
-    background-color: #de3f3f;
+    background-color: #a85c40;
     border-bottom-right-radius: 5px;
 }
 
@@ -66,12 +66,12 @@ body {
 
 #puntos-local{
     grid-area: drb_mark;
-    background-color: #1d3ba0;
+    background-color: #276baa;
 }
 
 #puntos-visitante{
     grid-area: bisit_mark;
-    background-color: #de3f3f;
+    background-color: #a85c40;
 }
 
 .ensayos {
@@ -85,14 +85,53 @@ body {
 
 #ensayos-local{
     grid-area: drb_foot;
-    background-color: #1d3ba0;
+    background-color: #276baa;
     border-bottom-left-radius: 5px;
 }
 
 #ensayos-visitante{
     grid-area: bisit_foot;
-    background-color: #de3f3f;
+    background-color: #a85c40;
     border-bottom-right-radius: 5px;
+}
+
+.tarjetas {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 26px;
+    padding: 2px 4px 0;
+}
+
+#tarjetas-local {
+    grid-area: drb_card;
+        justify-content: right;
+}
+
+#tarjetas-visitante {
+    grid-area: bisit_card;
+        justify-content: left;
+}
+
+.tarjeta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 26px;
+    border-radius: 2px;
+    color: #171717;
+    font: 700 13px/1 Arial, Helvetica, sans-serif;
+    font-variant-numeric: tabular-nums;
+}
+
+.tarjeta-amarilla {
+    background: #ffdf00;
+}
+
+.tarjeta-roja {
+    color: #fff;
+    background: #e32636;
 }
 
 .reloj {
@@ -100,7 +139,7 @@ body {
     color: #ffffff;
     font: 700 24px/1 Arial, Helvetica, sans-serif;
     font-variant-numeric: tabular-nums;
-    background-color: #323232;
+    background-color: #5c5a5a;
     margin: 0 10px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;

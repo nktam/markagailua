@@ -58,4 +58,14 @@ La sesión de gestión se cierra automáticamente tras 30 minutos sin actividad 
 
 Los navegadores consultan el estado compartido cada segundo. El cronómetro se calcula en el servidor, por lo que sigue avanzando correctamente aunque se cierre la pestaña del gestor.
 
+Si la tabla `scoreboard` ya existía, añade una vez las columnas para las tarjetas antes de usar esta versión:
+
+```sql
+ALTER TABLE scoreboard
+    ADD COLUMN local_yellow_cards INT UNSIGNED NOT NULL DEFAULT 0,
+    ADD COLUMN local_red_cards INT UNSIGNED NOT NULL DEFAULT 0,
+    ADD COLUMN visitor_yellow_cards INT UNSIGNED NOT NULL DEFAULT 0,
+    ADD COLUMN visitor_red_cards INT UNSIGNED NOT NULL DEFAULT 0;
+```
+
 El marcador tiene un tamaño fijo de 770 × 770 píxeles en las versiones local y de servidor.
