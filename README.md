@@ -1,6 +1,6 @@
 # Marcador compartido
 
-La página pública de solo visualización está en `servidor/index.php`. Para gestionar, abre `servidor/admin/`; se solicitará la clave privada configurada en el servidor antes de mostrar el panel.
+La página pública de solo visualización está en `servidor/index.php`. Para gestionar, abre `servidor/admin/`; se solicitará la clave privada configurada en el servidor antes de mostrar el control móvil. El marcador completo está en `servidor/admin/anoeta/`.
 
 ## Requisitos
 
@@ -23,7 +23,7 @@ Necesitas Docker Desktop con Docker Compose. Desde la raíz del proyecto, ejecut
 docker compose up --build
 ```
 
-Abre `http://localhost:8080` para ver el marcador y `http://localhost:8080/admin/` para acceder al panel de gestión. La clave local predeterminada es `cambia-esta-clave`; puedes cambiarla definiendo `ADMIN_PASSWORD` antes de iniciar Compose. La base de datos MySQL y su esquema se inicializan automáticamente la primera vez y se conservan en el volumen `mysql_data`.
+Abre `http://localhost:8080` para ver el marcador y `http://localhost:8080/admin/` para acceder al control de gestión. La clave local predeterminada es `cambia-esta-clave`; puedes cambiarla definiendo `ADMIN_PASSWORD` antes de iniciar Compose. La base de datos MySQL y su esquema se inicializan automáticamente la primera vez y se conservan en el volumen `mysql_data`.
 
 Para detener los contenedores, pulsa `Ctrl+C` y ejecuta `docker compose down`. Para borrar también la base de datos local, ejecuta `docker compose down -v`.
 

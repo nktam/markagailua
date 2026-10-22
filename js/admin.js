@@ -1,3 +1,4 @@
+(() => {
 const estadoConexion=document.querySelector('#estado-conexion');
 const botonAlternarReloj=document.querySelector('#alternar-reloj');
 const iconoReloj=document.querySelector('#icono-reloj');
@@ -150,3 +151,4 @@ if(selectorVisitante) {
 
 document.addEventListener('marcador:estado', recibirEstado);
 if(esPaginaMovil) consultarEstado();
+})();
