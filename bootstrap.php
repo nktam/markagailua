@@ -52,7 +52,7 @@ function manager_authenticated(): bool
         return true;
     }
 
-    if ($lastActivity > $now || $now - $lastActivity >= 1800) {
+    if ($lastActivity > $now || $now - $lastActivity >= 14400) {
         unset(
             $_SESSION['manager_authenticated'],
             $_SESSION['manager_last_activity'],

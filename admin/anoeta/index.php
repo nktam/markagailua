@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../bootstrap.php';
 
 if (!manager_authenticated()) {
-    header('Location: ../gestion.php');
+    header('Location: ../gestion.php?return_to=anoeta');
     exit;
 }
 

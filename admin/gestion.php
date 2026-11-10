@@ -5,6 +5,8 @@ require_once __DIR__ . '/../bootstrap.php';
 
 $error = '';
 $config = app_config();
+$returnToAnoeta = ($_GET['return_to'] ?? $_POST['return_to'] ?? null) === 'anoeta';
+$redirectTarget = $returnToAnoeta ? 'anoeta/index.php' : 'index.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!valid_csrf_token($_POST['csrf_token'] ?? null)) {
@@ -29,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['manager_authenticated'] = true;
             $_SESSION['manager_last_activity'] = time();
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            header('Location: index.php');
+            header('Location: ' . $redirectTarget);
             exit;
         }
     } else {
@@ -39,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (manager_authenticated()) {
-    header('Location: index.php');
+    header('Location: ' . $redirectTarget);
     exit;
 }
 ?>
@@ -59,6 +61,9 @@ if (manager_authenticated()) {
             <p class="error-gestion" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
         <?php endif; ?>
         <form action="gestion.php" method="post">
+            <?php if ($returnToAnoeta): ?>
+                <input type="hidden" name="return_to" value="anoeta">
+            <?php endif; ?>
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
             <input type="hidden" name="action" value="login">
             <label for="password">Clave de gestión</label>
